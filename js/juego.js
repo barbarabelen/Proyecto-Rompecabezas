@@ -57,7 +57,9 @@ function chequearSiGano() {
 }
 // Implementar alguna forma de mostrar un cartel que avise que ganaste el juego
 function mostrarCartelGanador() {
-  //COMPLETAR
+  if (chequearSiGano()){
+    alert("Ganaste");
+  }
 }
 
 /* Función que intercambia dos posiciones en la grilla.
@@ -71,12 +73,16 @@ En vez de intercambiar esos valores vamos a terminar teniendo en ambas posicione
 Se te ocurre cómo solucionar esto con una variable temporal?
 */
 function intercambiarPosicionesGrilla(filaPos1, columnaPos1, filaPos2, columnaPos2) {
-  //COMPLETAR
+  var piezaAnterior = grilla[filaPos1][columnaPos1];
+  var piezaActual = grilla[filaPos2][columnaPos2];
+  grilla[filaPos1][columnaPos1] = piezaActual;
+  grilla[filaPos2][columnaPos2] = piezaAnterior;
 }
 
 // Actualiza la posición de la pieza vacía
 function actualizarPosicionVacia(nuevaFila, nuevaColumna) {
-  //COMPLETAR
+  filaVacia = nuevaFila;
+  columnaVacia = nuevaColumna;
 }
 
 
