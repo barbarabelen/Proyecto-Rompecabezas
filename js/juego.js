@@ -92,8 +92,7 @@ function actualizarPosicionVacia(nuevaFila, nuevaColumna) {
 function posicionValida(fila, columna) {
   const filaPosicionValida = (fila >= 0 && fila <= 2);
   const columnaPosicionValida = (columna >= 0 && columna <=2);
-  return //filaPosicionValida;
-  //return columnaPosicionValida;
+  return filaPosicionValida && columnaPosicionValida;
 }
 
 /* Movimiento de fichas, en este caso la que se mueve es la blanca intercambiando su posición con otro elemento.
