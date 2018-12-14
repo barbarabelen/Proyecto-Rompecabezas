@@ -40,26 +40,31 @@ y utilice actualizarUltimoMovimiento para mostrarlo en pantalla */
 
 function movimientosPrevios(direccion) {
   movimientos.push(direccion);
+  //actualizarUltimoMovimiento(direccion);
+  actualizarCantidadMovimientos(movimientos, 'cantidad-movimientos');
   actualizarUltimoMovimiento(direccion);
 }
 
 /* Esta función va a chequear si el Rompecabezas esta en la posicion ganadora. 
 Existen diferentes formas de hacer este chequeo a partir de la grilla. */
 function chequearSiGano() {
-  for (var i = 0; i < grilla.length; i++) {
-    for (var j = 0; j < grillaGanadora[i].length; j++) {
-      if (grilla[i][j] !== grillaGanadora[i][j]) {
-        return false;
-        }
+  let diferencia = false;
+
+  for (let i = 0; i < grillaGanadora.length; i++) {
+    for (let j = 0; j < grillaGanadora[i].length; j++) {
+      if (grillaGanadora[i][j] !== grilla[i][j]) {
+        diferencia = true;
       }
     }
-    return true;
   }
-  
+  if (!diferencia) {
+    mostrarCartelGanador();
+  }
+}
 
 // Implementar alguna forma de mostrar un cartel que avise que ganaste el juego
 function mostrarCartelGanador() {
-  if (chequearSiGano()){
+  if (chequearSiGano()) {
     alert("Ganaste");
   }
 }
@@ -90,9 +95,11 @@ function actualizarPosicionVacia(nuevaFila, nuevaColumna) {
 
 // Para chequear si la posicón está dentro de la grilla.
 function posicionValida(fila, columna) {
-  const filaPosicionValida = (fila >= 0 && fila <= 2);
-  const columnaPosicionValida = (columna >= 0 && columna <=2);
-  return filaPosicionValida && columnaPosicionValida;
+  if ((fila >= 0 && fila <= 2) && (columna >= 0 && columna <= 2)) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 /* Movimiento de fichas, en este caso la que se mueve es la blanca intercambiando su posición con otro elemento.
@@ -101,42 +108,43 @@ function moverEnDireccion(direccion) {
   var nuevaFilaPiezaVacia;
   var nuevaColumnaPiezaVacia;
 
-  // Mueve pieza hacia la abajo, reemplazandola con la blanca
   if (direccion === codigosDireccion.ABAJO) {
-    nuevaFilaPiezaVacia = filaVacia - 1;
+    nuevaFilaPiezaVacia = filaVacia + 1;
     nuevaColumnaPiezaVacia = columnaVacia;
   }
 
   // Mueve pieza hacia arriba, reemplazandola con la blanca
   else if (direccion === codigosDireccion.ARRIBA) {
-    nuevaFilaPiezaVacia = filaVacia + 1;
+    nuevaFilaPiezaVacia = filaVacia - 1;
     nuevaColumnaPiezaVacia = columnaVacia;
   }
 
   // Mueve pieza hacia la derecha, reemplazandola con la blanca
   else if (direccion === codigosDireccion.DERECHA) {
     nuevaFilaPiezaVacia = filaVacia;
-    nuevaColumnaPiezaVacia = columnaVacia - 1;
+    nuevaColumnaPiezaVacia = columnaVacia + 1;
   }
 
   // Mueve pieza hacia la izquierda, reemplazandola con la blanca
   else if (direccion === codigosDireccion.IZQUIERDA) {
     nuevaFilaPiezaVacia = filaVacia;
-    nuevaColumnaPiezaVacia = columnaVacia + 1;
+    nuevaColumnaPiezaVacia = columnaVacia - 1;
   }
 
   /* A continuación se chequea si la nueva posición es válida, si lo es, se intercambia. 
   Para que esta parte del código funcione correctamente deberás haber implementado 
   las funciones posicionValida, intercambiarPosicionesGrilla y actualizarPosicionVacia */
 
+
   if (posicionValida(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia)) {
     intercambiarPosiciones(filaVacia, columnaVacia, nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
     actualizarPosicionVacia(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
 
     //COMPLETAR: Agregar la dirección del movimiento al arreglo de movimientos
-    agregarUltimoMovimientoAlArreglo(direccion);
+    movimientosPrevios(direccion);
   }
 }
+
 
 
 //////////////////////////////////////////////////////////
