@@ -40,8 +40,6 @@ y utilice actualizarUltimoMovimiento para mostrarlo en pantalla */
 
 function movimientosPrevios(direccion) {
   movimientos.push(direccion);
-  //actualizarUltimoMovimiento(direccion);
-  actualizarCantidadMovimientos(movimientos, 'cantidad-movimientos');
   actualizarUltimoMovimiento(direccion);
 }
 
