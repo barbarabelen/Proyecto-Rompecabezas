@@ -46,24 +46,23 @@ function movimientosPrevios(direccion) {
 /* Esta función va a chequear si el Rompecabezas esta en la posicion ganadora. 
 Existen diferentes formas de hacer este chequeo a partir de la grilla. */
 function chequearSiGano() {
-  let diferencia = false;
+  let gano = true;
 
-  for (let i = 0; i < grillaGanadora.length; i++) {
-    for (let j = 0; j < grillaGanadora[i].length; j++) {
-      if (grillaGanadora[i][j] !== grilla[i][j]) {
-        diferencia = true;
-      }
-    }
-  }
-  if (!diferencia) {
-    mostrarCartelGanador();
-  }
+ for (let i=0; i < grillaGanadora.length; i++) {
+   for (let j=0; j < grillaGanadora[i].length; j++) {
+     if (grillaGanadora[i][j] !== grilla[i][j] ) {
+       gano = false;
+     }
+   }
+ }
+
+ return gano;
 }
 
 // Implementar alguna forma de mostrar un cartel que avise que ganaste el juego
 function mostrarCartelGanador() {
   if (chequearSiGano()) {
-    alert("Ganaste");
+    alert("Ganaste!");
   }
 }
 
@@ -278,7 +277,7 @@ y ejecutando la función para que se capturen las teclas que
 presiona el usuario */
 function iniciar() {
   mostrarInstrucciones(instrucciones);
-  mezclarPiezas(30);
+  mezclarPiezas(60);
   capturarTeclas();
 }
 
